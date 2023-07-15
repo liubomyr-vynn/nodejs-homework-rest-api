@@ -1,9 +1,6 @@
 import express from "express";
-
 import Joi from "joi";
-
 import contactsService from "../../models/contacts.js";
-
 import HttpError from "../../helpers/HttpError.js";
 
 const contactsRouter = express.Router();
@@ -47,6 +44,9 @@ contactsRouter.get("/:contactId", async (req, res, next) => {
 
 contactsRouter.post("/", async (req, res, next) => {
 	try {
+		if (!Object.keys(req.body).length) {
+			throw HttpError(400, "Missing Fields");
+		}
 		const { error } = addContactsSchema.validate(req.body);
 		if (error) {
 			throw HttpError(400, error.message);
@@ -60,6 +60,9 @@ contactsRouter.post("/", async (req, res, next) => {
 
 contactsRouter.put("/:contactId", async (req, res, next) => {
 	try {
+		if (!Object.keys(req.body).length) {
+			throw HttpError(400, "Missing Fields");
+		}
 		const { error } = addContactsSchema.validate(req.body);
 		if (error) {
 			throw HttpError(400, error.message);
