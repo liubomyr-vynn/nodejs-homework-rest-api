@@ -13,6 +13,7 @@ const addContactsSchema = Joi.object({
 		"string.empty": `Missing field 'phone'`,
 		"any.required": `Missing required 'phone' field`,
 	}),
+	favorite: Joi.boolean(),
 });
 
 export default {
