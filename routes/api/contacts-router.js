@@ -4,7 +4,11 @@ import contactsController from "../../controllers/contacts-controller.js";
 
 import { validateBody } from "../../decorators/index.js";
 
-import { isEmptyBody, isValidId } from "../../middlewares/index.js";
+import {
+	isEmptyBody,
+	isEmptyFavoriteBody,
+	isValidId,
+} from "../../middlewares/index.js";
 
 import contactsSchemas from "../../schemas/contacts-schemas.js";
 
@@ -21,13 +25,22 @@ contactsRouter.post(
 	contactsController.add,
 );
 
-// contactsRouter.put(
-// 	"/:contactId",isValidId,
-// 	isEmptyBody,
-// 	validateBody(contactsSchemas.addContactsSchema),
-// 	contactsController.updateById,
-// );
+contactsRouter.put(
+	"/:contactId",
+	isValidId,
+	isEmptyBody,
+	validateBody(contactsSchemas.addContactsSchema),
+	contactsController.updateById,
+);
 
-// contactsRouter.delete("/:contactId",isValidId, contactsController.deleteById);
+contactsRouter.patch(
+	"/:contactId/favorite",
+	isValidId,
+	isEmptyFavoriteBody,
+	validateBody(contactsSchemas.contactUpdateFavoriteSchema),
+	contactsController.updateStatusContact,
+);
+
+contactsRouter.delete("/:contactId", isValidId, contactsController.deleteById);
 
 export default contactsRouter;
