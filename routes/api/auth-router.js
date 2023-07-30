@@ -6,6 +6,8 @@ import userSchemas from "../../schemas/users-schemas.js";
 
 import { validateBody } from "../../decorators/index.js";
 
+import { authenticate } from "../../middlewares/index.js";
+
 const authRouter = express.Router();
 
 authRouter.post(
@@ -19,5 +21,9 @@ authRouter.post(
 	validateBody(userSchemas.userRegisterSchema),
 	authController.login,
 );
+
+authRouter.get("/current", authenticate, authController.getCurrent);
+
+authRouter.post("/logout", authenticate, authController.logout);
 
 export default authRouter;
