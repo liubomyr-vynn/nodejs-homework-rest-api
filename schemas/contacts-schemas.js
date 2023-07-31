@@ -1,11 +1,13 @@
 import Joi from "joi";
 
+import { emailRegexp } from "../constants/user-constants.js";
+
 const addContactsSchema = Joi.object({
 	name: Joi.string().required().messages({
 		"string.empty": `Missing field 'name'`,
 		"any.required": `Missing required 'name' field`,
 	}),
-	email: Joi.string().email().required().messages({
+	email: Joi.string().pattern(emailRegexp).required().messages({
 		"string.empty": `Missing field 'email'`,
 		"any.required": `Missing required 'email' field`,
 	}),

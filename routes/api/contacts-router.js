@@ -8,11 +8,14 @@ import {
 	isEmptyBody,
 	isEmptyFavoriteBody,
 	isValidId,
+	authenticate,
 } from "../../middlewares/index.js";
 
 import contactsSchemas from "../../schemas/contacts-schemas.js";
 
 const contactsRouter = express.Router();
+
+contactsRouter.use(authenticate);
 
 contactsRouter.get("/", contactsController.getAll);
 
