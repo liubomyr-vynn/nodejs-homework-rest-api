@@ -5,6 +5,7 @@ import contactsController from "../../controllers/contacts-controller.js";
 import { validateBody } from "../../decorators/index.js";
 
 import {
+	upload,
 	isEmptyBody,
 	isEmptyFavoriteBody,
 	isValidId,
@@ -23,6 +24,7 @@ contactsRouter.get("/:contactId", isValidId, contactsController.getById);
 
 contactsRouter.post(
 	"/",
+	upload.single("avatar"),
 	isEmptyBody,
 	validateBody(contactsSchemas.addContactsSchema),
 	contactsController.add,
