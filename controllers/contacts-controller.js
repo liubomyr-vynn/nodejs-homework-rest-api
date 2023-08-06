@@ -1,4 +1,3 @@
-import fs from "fs/promises";
 import path from "path";
 
 import Contact from "../models/contact.js";
@@ -33,11 +32,7 @@ const avatarPath = path.resolve("public", "avatars");
 
 const add = async (req, res) => {
 	const { _id: owner } = req.user;
-	const { path: oldPath, filename } = req.file;
-	const newPath = path.join(avatarPath, filename);
-	fs.rename(oldPath, newPath);
-	const avatarURL = path.join("public", "avatars", filename);
-	const result = await Contact.create({ ...req.body, avatarURL, owner });
+	const result = await Contact.create({ ...req.body, owner });
 	res.status(201).json(result);
 };
 
