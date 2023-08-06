@@ -2,6 +2,7 @@ import multer from "multer";
 import path from "path";
 
 const destination = path.resolve("tmp");
+const maxFileSize = 1024 * 1024 * 5;
 
 const storage = multer.diskStorage({
 	destination,
@@ -14,7 +15,7 @@ const storage = multer.diskStorage({
 });
 
 const limits = {
-	fileSize: 1024 * 1024 * 5,
+	fileSize: maxFileSize,
 };
 
 const upload = multer({
