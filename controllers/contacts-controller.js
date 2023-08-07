@@ -1,3 +1,5 @@
+import path from "path";
+
 import Contact from "../models/contact.js";
 import { HttpError } from "../helpers/index.js";
 import { ctrlWrapper } from "../decorators/index.js";
@@ -25,6 +27,8 @@ const getById = async (req, res) => {
 	}
 	res.json(result);
 };
+
+const avatarPath = path.resolve("public", "avatars");
 
 const add = async (req, res) => {
 	const { _id: owner } = req.user;
