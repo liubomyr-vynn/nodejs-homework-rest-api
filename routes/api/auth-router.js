@@ -16,6 +16,14 @@ authRouter.post(
 	authController.register,
 );
 
+authRouter.get("/verify/:verificationToken", authController.verify);
+
+authRouter.post(
+	"/verify",
+	validateBody(userSchemas.userEmailSchema),
+	authController.resendVerifyEmail,
+);
+
 authRouter.post(
 	"/login",
 	validateBody(userSchemas.userRegisterSchema),
@@ -29,7 +37,6 @@ authRouter.post("/logout", authenticate, authController.logout);
 authRouter.patch(
 	"/avatars",
 	upload.single("avatar"),
-	// validateBody(userSchemas.avatarUpdateSchema),
 	authenticate,
 	authController.updateAvatar,
 );
